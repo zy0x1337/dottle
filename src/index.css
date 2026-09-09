@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: #09090b;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overflow: hidden;
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  /* allow scrolling inside panels, but never browser pinch-zoom / double-tap zoom */
+  touch-action: pan-x pan-y;
+}
+
+/* full-height app shell with dvh fallback */
+.app-height {
+  height: 100%;
+  height: 100dvh;
+}
+
+/* iOS Safari zooms into inputs smaller than 16px – avoid that on touch devices */
+@media (pointer: coarse) {
+  input:not([type="color"]):not([type="file"]),
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* hide scrollbars for horizontal strips but keep them scrollable */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* transparency checkerboard background */
+.checker {
+  background-color: #d6d6de;
+  background-image:
+    linear-gradient(45deg, #ececf1 25%, transparent 25%),
+    linear-gradient(-45deg, #ececf1 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ececf1 75%),
+    linear-gradient(-45deg, transparent 75%, #ececf1 75%);
+  background-size: 16px 16px;
+  background-position:
+    0 0,
+    0 8px,
+    8px -8px,
+    -8px 0;
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-sheet-in {
+  animation: sheet-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.animate-fade-in {
+  animation: fade-in 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sheet-in,
+  .animate-fade-in {
+    animation: none;
+  }
+}
+
+/* subtle scrollbars on desktop panels */
+@media (pointer: fine) {
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    border-radius: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
