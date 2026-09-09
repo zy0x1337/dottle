@@ -78,4 +78,4 @@ Any modern evergreen browser (Chrome, Safari, Firefox, Edge) on desktop or mobil
 
 ## License
 
-No license has been specified yet for this project.
+Licensed under the [MIT License](LICENSE).
