@@ -6,10 +6,9 @@
 
 Draw crisp 16×16 to 32×32 sprites on your phone or your desktop — install it as an app, keep drawing offline.
 
-[**Live Demo →**](https://zy0x1337.github.io/dottle/)
+[**Live Demo →**](#) <sub>_(add your Vercel URL here after deploying — see [Deployment](#deployment))_</sub>
 
-[![Live Demo](https://img.shields.io/badge/demo-live-16a34a?style=flat-square)](https://zy0x1337.github.io/dottle/)
-[![Deploy status](https://img.shields.io/github/actions/workflow/status/zy0x1337/dottle/deploy.yml?branch=main&style=flat-square&label=deploy)](https://github.com/zy0x1337/dottle/actions/workflows/deploy.yml)
+[![Deployed on Vercel](https://img.shields.io/badge/deployed%20on-vercel-black?style=flat-square&logo=vercel&logoColor=white)](#deployment)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3178c6?style=flat-square)](LICENSE)
 [![PWA](https://img.shields.io/badge/PWA-installable%20%2B%20offline-5a0fc8?style=flat-square&logo=pwa&logoColor=white)](#installing-as-an-app)
 
@@ -74,7 +73,7 @@ Draw crisp 16×16 to 32×32 sprites on your phone or your desktop — install it
 - [Tailwind CSS 4](https://tailwindcss.com/) for styling
 - [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) (Workbox) for the web app manifest and offline service worker
 - [lucide-react](https://lucide.dev/) for icons
-- GitHub Actions + GitHub Pages for hosting and deployment
+- [Vercel](https://vercel.com/) for hosting and deployment
 
 ## Getting started
 
@@ -96,7 +95,7 @@ npm run preview
 
 `npm run build` writes a standard static site to `dist/` — HTML, JS, CSS, icons, plus the generated `manifest.webmanifest` and `sw.js`. `npm run preview` serves that build locally; hard-refresh once so the service worker installs, then use your browser's dev tools to go offline and confirm the app still loads.
 
-Because the deployment target is a GitHub Pages *project* site, `vite.config.ts` hardcodes `base: "/dottle/"`. If you fork this to a different repo name (or a `<user>.github.io` user site, served from `/`), update `base` there to match.
+`vite.config.ts` sets `base: "/"` since the app is served from the root of its own Vercel domain, not from a repo-name subpath.
 
 ### Available scripts
 
@@ -109,9 +108,21 @@ Because the deployment target is a GitHub Pages *project* site, `vite.config.ts`
 
 ## Deployment
 
-Every push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which type-checks, builds, and publishes `dist/` to GitHub Pages via `actions/deploy-pages`.
+Dottle is deployed on [Vercel](https://vercel.com/), which supports private GitHub repos on the free Hobby plan.
 
-**Live site:** **https://zy0x1337.github.io/dottle/**
+1. Push this repo to GitHub (already done).
+2. On [vercel.com](https://vercel.com/), **Add New… → Project**, then **Import** the repo (grant Vercel's GitHub App access to it if prompted — private repos need explicit per-repo access).
+3. Vercel auto-detects the **Vite** framework preset:
+   - Build command: `npm run build`
+   - Output directory: `dist`
+   - Install command: `npm install`
+4. Click **Deploy**. You'll get a `<project>.vercel.app` URL immediately; add a custom domain later under Project → Settings → Domains if you want one.
+
+No environment variables or serverless functions are needed — this is a fully static, client-only build. Every push to `main` triggers a new production deployment automatically; every other branch and pull request gets its own preview URL.
+
+`vercel.json` sets a `Cache-Control: no-cache` header on `sw.js`, `registerSW.js`, and `manifest.webmanifest` so browsers always revalidate them — without it, a stale cached service worker could hide new deployments from returning visitors.
+
+Prefer the CLI instead? `npm i -g vercel`, then `vercel` from the project root to link and deploy a preview, or `vercel --prod` to deploy straight to production.
 
 ## Installing as an app
 
