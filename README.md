@@ -1,25 +1,71 @@
+<div align="center">
+
 # Dottle
 
-A mobile-first pixel art sprite editor for the web. Draw crisp, tiny sprites in your browser — on your phone or your desktop — with a touch-friendly toolset, curated retro palettes, and one-tap PNG export.
+**A mobile-first pixel art sprite editor, built for the web.**
 
-**[Try it live](https://zy0x1337.github.io/dottle/)** — installable as a home-screen app and fully usable offline after the first visit.
+Draw crisp 16×16 to 32×32 sprites on your phone or your desktop — install it as an app, keep drawing offline.
 
-Dottle is a static, client-only web app: no backend, no accounts, no server-side code. It's a Progressive Web App — once loaded, a service worker caches everything it needs, so it keeps working with no network connection. Sprites and settings are kept in your browser's local storage.
+[**Live Demo →**](https://zy0x1337.github.io/dottle/)
+
+[![Live Demo](https://img.shields.io/badge/demo-live-16a34a?style=flat-square)](https://zy0x1337.github.io/dottle/)
+[![Deploy status](https://img.shields.io/github/actions/workflow/status/zy0x1337/dottle/deploy.yml?branch=main&style=flat-square&label=deploy)](https://github.com/zy0x1337/dottle/actions/workflows/deploy.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-3178c6?style=flat-square)](LICENSE)
+[![PWA](https://img.shields.io/badge/PWA-installable%20%2B%20offline-5a0fc8?style=flat-square&logo=pwa&logoColor=white)](#installing-as-an-app)
+
+[![React](https://img.shields.io/badge/React-19-149eca?style=flat-square&logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-7-646cff?style=flat-square&logo=vite&logoColor=white)](https://vite.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06b6d4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+
+<br>
+
+<img src="docs/screenshots/desktop.png" alt="Dottle desktop layout — pixel canvas, tool rail, live preview, palette" width="100%">
+
+</div>
+
+## Contents
+
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Tech stack](#tech-stack)
+- [Getting started](#getting-started)
+- [Deployment](#deployment)
+- [Installing as an app](#installing-as-an-app)
+- [Project structure](#project-structure)
+- [Data & privacy](#data--privacy)
+- [Browser support](#browser-support)
+- [License](#license)
 
 ## Features
 
-- **Canvas sizes** — 16×16, 24×24, and 32×32 sprites
-- **Drawing tools** — pencil, eraser, fill (bucket), eyedropper, line, rectangle, ellipse, and move, each with a keyboard shortcut
-- **Brush & symmetry** — adjustable brush size and horizontal/vertical/both-axis mirror drawing
-- **Shape options** — filled or outlined rectangles/ellipses, global or contiguous fill
-- **Transform tools** — flip, rotate, nudge (wrapping shift), center, auto-outline, and clear, all fully undoable
-- **Color palettes** — PICO-8, Sweetie 16, Endesga 32, NA16, Game Boy, and Grayscale, plus custom colors and a recent-colors tray
-- **Sprite gallery** — create, duplicate, rename, and delete multiple sprites, all persisted locally
-- **Import** — bring in existing images, automatically resized and quantized to the sprite grid
-- **Export** — download, share, or copy PNGs at 1×–32× scale with transparent, white, or black backgrounds
-- **Undo/redo** — full history for every edit and transform
-- **Mobile-tuned UI** — bottom toolbars, touch-friendly hit targets, pinch-to-zoom canvas, and a two-finger-tap undo gesture
-- **Installable & offline-capable** — a full PWA with a web app manifest and a service worker that precaches every asset; install it to your home screen or desktop and keep drawing with no network connection
+| | |
+|---|---|
+| **Canvas sizes** | 16×16, 24×24, and 32×32 sprites |
+| **Drawing tools** | Pencil, eraser, fill, eyedropper, line, rectangle, ellipse, and move — each with a keyboard shortcut |
+| **Brush & symmetry** | Adjustable brush size and horizontal / vertical / both-axis mirror drawing |
+| **Shape options** | Filled or outlined rectangles/ellipses, global or contiguous fill |
+| **Transform tools** | Flip, rotate, nudge (wrapping shift), center, auto-outline, and clear — all fully undoable |
+| **Color palettes** | PICO-8, Sweetie 16, Endesga 32, NA16, Game Boy, and Grayscale, plus custom colors and a recent-colors tray |
+| **Sprite gallery** | Create, duplicate, rename, and delete multiple sprites, all persisted locally |
+| **Import** | Bring in existing images, automatically resized and quantized to the sprite grid |
+| **Export** | Download, share, or copy PNGs at 1×–32× scale with transparent, white, or black backgrounds |
+| **Undo/redo** | Full history for every edit and transform |
+| **Mobile-tuned UI** | Bottom toolbars, touch-friendly hit targets, pinch-to-zoom canvas, two-finger-tap undo |
+| **Installable & offline** | Full PWA — a service worker precaches every asset, so it keeps working with no network connection |
+
+## Screenshots
+
+<table>
+<tr>
+<td width="65%"><img src="docs/screenshots/desktop.png" alt="Desktop layout with side panels for preview, options, and palette"></td>
+<td width="35%"><img src="docs/screenshots/mobile.png" alt="Mobile layout with bottom toolbars"></td>
+</tr>
+<tr>
+<td align="center"><sub>Desktop — side panels for preview, options, and palette</sub></td>
+<td align="center"><sub>Mobile — compact bottom toolbars</sub></td>
+</tr>
+</table>
 
 ## Tech stack
 
@@ -37,7 +83,9 @@ npm install
 npm run dev
 ```
 
-Then open the printed local URL in your browser (or on your phone, on the same network). Note: the source `index.html` loads unbundled TypeScript modules, so it only works through the Vite dev server — opening it directly from disk will not run the app. The service worker is also disabled in dev mode, so offline behavior can only be checked against a production build (see below).
+Open the printed local URL in your browser (or on your phone, on the same network).
+
+> **Note:** the source `index.html` loads unbundled TypeScript modules, so it only runs through the Vite dev server — opening it directly from disk won't work. The service worker is also disabled in dev mode, so offline behavior can only be checked against a production build.
 
 ### Building for production
 
@@ -46,30 +94,34 @@ npm run build
 npm run preview
 ```
 
-`npm run build` writes a standard static site to `dist/` (HTML, JS, CSS, icons, plus the generated `manifest.webmanifest` and `sw.js`). `npm run preview` serves that build locally — hard-refresh once so the service worker installs, then use your browser's dev tools to go offline and confirm the app still loads.
+`npm run build` writes a standard static site to `dist/` — HTML, JS, CSS, icons, plus the generated `manifest.webmanifest` and `sw.js`. `npm run preview` serves that build locally; hard-refresh once so the service worker installs, then use your browser's dev tools to go offline and confirm the app still loads.
 
-Because the deployment target is a GitHub Pages *project* site, `vite.config.ts` hardcodes `base: "/dottle/"`. If you fork this to a different repo name (or a `<user>.github.io` user site, which is served from `/`), update `base` there to match.
+Because the deployment target is a GitHub Pages *project* site, `vite.config.ts` hardcodes `base: "/dottle/"`. If you fork this to a different repo name (or a `<user>.github.io` user site, served from `/`), update `base` there to match.
 
 ### Available scripts
 
-| Command             | Description                                                |
-| ------------------- | ----------------------------------------------------------- |
-| `npm run dev`       | Start the Vite dev server with hot reload (no service worker) |
-| `npm run build`     | Build the static production site, including the PWA manifest and service worker, to `dist/` |
-| `npm run preview`   | Serve the production build locally to check it before deploying |
-| `npm run typecheck` | Run the TypeScript compiler in check-only mode (no build script runs this automatically) |
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the Vite dev server with hot reload (no service worker) |
+| `npm run build` | Build the static production site, including the PWA manifest and service worker, to `dist/` |
+| `npm run preview` | Serve the production build locally to check it before deploying |
+| `npm run typecheck` | Run the TypeScript compiler in check-only mode (not run automatically by `build`) |
 
 ## Deployment
 
-Every push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which type-checks, builds, and publishes `dist/` to GitHub Pages via `actions/deploy-pages`. The live site is served at `https://zy0x1337.github.io/dottle/`.
+Every push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which type-checks, builds, and publishes `dist/` to GitHub Pages via `actions/deploy-pages`.
+
+**Live site:** **https://zy0x1337.github.io/dottle/**
 
 ## Installing as an app
 
 Dottle is an installable Progressive Web App:
 
-- **Desktop Chrome/Edge**: click the install icon in the address bar (or menu → "Install Dottle…").
-- **Android Chrome**: menu → "Add to Home screen" / "Install app".
-- **iOS Safari**: Share → "Add to Home Screen".
+| Platform | How |
+|---|---|
+| **Desktop** (Chrome / Edge) | Click the install icon in the address bar, or menu → *Install Dottle…* |
+| **Android** (Chrome) | Menu → *Add to Home screen* / *Install app* |
+| **iOS** (Safari) | Share → *Add to Home Screen* |
 
 After the first load, a service worker precaches the app shell and all assets, so subsequent visits — and drawing sessions — work with no network connection at all. New deployments update automatically in the background and take effect the next time the app is opened.
 
