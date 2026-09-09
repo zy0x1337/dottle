@@ -3,6 +3,7 @@ import {
   Crosshair,
   Download,
   Grid3x3,
+  Info,
   Moon,
   Settings as SettingsIcon,
   Shapes,
@@ -165,6 +166,15 @@ function ToggleRow({
 export function SettingsSheet({ open, sprite, settings, onClose, onResize, onSettings }: SettingsSheetProps) {
   return (
     <Sheet open={open} title="Canvas & settings" onClose={onClose}>
+      <div className="mb-4 flex items-start gap-2.5 rounded-2xl bg-zinc-800/60 p-3">
+        <Info className="mt-0.5 h-4 w-4 shrink-0 text-zinc-400" />
+        <p className="text-xs text-zinc-400">
+          Sprites are saved only in this browser, on this device — nothing is uploaded anywhere.
+          Clearing your browser data or switching devices will lose them, so export anything you
+          want to keep.
+        </p>
+      </div>
+
       <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-500">Canvas size</h3>
       <Segmented
         size="md"
