@@ -6,7 +6,7 @@
 
 Draw crisp 16×16 to 32×32 sprites on your phone or your desktop — install it as an app, keep drawing offline.
 
-[**Live Demo →**](#) <sub>_(add your Cloudflare Pages URL here after deploying — see [Deployment](#deployment))_</sub>
+[**Live Demo →**](https://dottle.pages.dev)
 
 [![Deployed on Cloudflare Pages](https://img.shields.io/badge/deployed%20on-cloudflare%20pages-f38020?style=flat-square&logo=cloudflarepages&logoColor=white)](#deployment)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3178c6?style=flat-square)](LICENSE)
@@ -109,6 +109,8 @@ npm run preview
 ## Deployment
 
 Dottle is deployed on [Cloudflare Pages](https://pages.cloudflare.com/), which supports private GitHub repos for free.
+
+**Live site:** **https://dottle.pages.dev**
 
 1. Push this repo to GitHub (already done).
 2. On the [Cloudflare dashboard](https://dash.cloudflare.com/), go to **Workers & Pages → Create → Pages → Connect to Git**, then select the repo (grant Cloudflare's GitHub App access to it if prompted — private repos need explicit per-repo access).
