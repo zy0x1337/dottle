@@ -2,7 +2,7 @@
 
 A mobile-first pixel art sprite editor for the web. Draw crisp, tiny sprites in your browser — on your phone or your desktop — with a touch-friendly toolset, curated retro palettes, and one-tap PNG export.
 
-Built as a single, self-contained `index.html` file: no backend, no accounts, no build step to run it — everything lives in your browser's local storage.
+The production build compiles down to a single, self-contained `index.html` file with everything inlined (JS, CSS, no external requests) — no backend, no accounts, no server-side code. Host it as a static file, drop it on a USB stick, or open it straight from disk; all sprites and settings are kept in your browser's local storage.
 
 ## Features
 
@@ -17,7 +17,7 @@ Built as a single, self-contained `index.html` file: no backend, no accounts, no
 - **Export** — download, share, or copy PNGs at 1×–32× scale with transparent, white, or black backgrounds
 - **Undo/redo** — full history for every edit and transform
 - **Mobile-tuned UI** — bottom toolbars, touch-friendly hit targets, pinch-to-zoom canvas, and a two-finger-tap undo gesture
-- **Installable** — works as an iOS/Android home-screen web app (PWA-style meta tags included)
+- **Home-screen friendly** — standalone-display and status-bar meta tags let you pin it to an iOS/Android home screen without browser chrome (no offline support or install prompt yet — there's no web app manifest or service worker)
 
 ## Tech stack
 
@@ -34,15 +34,24 @@ npm install
 npm run dev
 ```
 
-Then open the printed local URL in your browser (or on your phone, on the same network).
+Then open the printed local URL in your browser (or on your phone, on the same network). Note: the source `index.html` loads unbundled TypeScript modules, so it only works through the Vite dev server — opening it directly from disk will not run the app.
+
+### Building the standalone file
+
+```bash
+npm run build
+```
+
+This produces `dist/index.html` — the single, self-contained file described above. Open it directly in a browser (`file://` works) or serve it from any static host.
 
 ### Available scripts
 
-| Command           | Description                                      |
-| ----------------- | ------------------------------------------------- |
-| `npm run dev`     | Start the Vite dev server with hot reload          |
-| `npm run build`   | Type-check and build a single-file production bundle to `dist/` |
-| `npm run preview` | Preview the production build locally               |
+| Command             | Description                                                |
+| ------------------- | ----------------------------------------------------------- |
+| `npm run dev`       | Start the Vite dev server with hot reload                   |
+| `npm run build`     | Build the single-file production bundle to `dist/`          |
+| `npm run preview`   | Serve the production build locally to check it before deploying |
+| `npm run typecheck` | Run the TypeScript compiler in check-only mode (no build script runs this automatically) |
 
 ## Project structure
 
