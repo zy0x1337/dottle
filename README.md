@@ -6,9 +6,9 @@
 
 Draw crisp 16×16 to 32×32 sprites on your phone or your desktop — install it as an app, keep drawing offline.
 
-[**Live Demo →**](#) <sub>_(add your Vercel URL here after deploying — see [Deployment](#deployment))_</sub>
+[**Live Demo →**](#) <sub>_(add your Cloudflare Pages URL here after deploying — see [Deployment](#deployment))_</sub>
 
-[![Deployed on Vercel](https://img.shields.io/badge/deployed%20on-vercel-black?style=flat-square&logo=vercel&logoColor=white)](#deployment)
+[![Deployed on Cloudflare Pages](https://img.shields.io/badge/deployed%20on-cloudflare%20pages-f38020?style=flat-square&logo=cloudflarepages&logoColor=white)](#deployment)
 [![License: MIT](https://img.shields.io/badge/license-MIT-3178c6?style=flat-square)](LICENSE)
 [![PWA](https://img.shields.io/badge/PWA-installable%20%2B%20offline-5a0fc8?style=flat-square&logo=pwa&logoColor=white)](#installing-as-an-app)
 
@@ -73,7 +73,7 @@ Draw crisp 16×16 to 32×32 sprites on your phone or your desktop — install it
 - [Tailwind CSS 4](https://tailwindcss.com/) for styling
 - [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) (Workbox) for the web app manifest and offline service worker
 - [lucide-react](https://lucide.dev/) for icons
-- [Vercel](https://vercel.com/) for hosting and deployment
+- [Cloudflare Pages](https://pages.cloudflare.com/) for hosting and deployment
 
 ## Getting started
 
@@ -95,7 +95,7 @@ npm run preview
 
 `npm run build` writes a standard static site to `dist/` — HTML, JS, CSS, icons, plus the generated `manifest.webmanifest` and `sw.js`. `npm run preview` serves that build locally; hard-refresh once so the service worker installs, then use your browser's dev tools to go offline and confirm the app still loads.
 
-`vite.config.ts` sets `base: "/"` since the app is served from the root of its own Vercel domain, not from a repo-name subpath.
+`vite.config.ts` sets `base: "/"` since the app is served from the root of its own domain, not from a repo-name subpath.
 
 ### Available scripts
 
@@ -108,21 +108,22 @@ npm run preview
 
 ## Deployment
 
-Dottle is deployed on [Vercel](https://vercel.com/), which supports private GitHub repos on the free Hobby plan.
+Dottle is deployed on [Cloudflare Pages](https://pages.cloudflare.com/), which supports private GitHub repos for free.
 
 1. Push this repo to GitHub (already done).
-2. On [vercel.com](https://vercel.com/), **Add New… → Project**, then **Import** the repo (grant Vercel's GitHub App access to it if prompted — private repos need explicit per-repo access).
-3. Vercel auto-detects the **Vite** framework preset:
+2. On the [Cloudflare dashboard](https://dash.cloudflare.com/), go to **Workers & Pages → Create → Pages → Connect to Git**, then select the repo (grant Cloudflare's GitHub App access to it if prompted — private repos need explicit per-repo access).
+3. Set the build configuration (Cloudflare doesn't auto-detect Vite, so fill these in):
+   - Framework preset: **None** (or **Vite**, if offered)
    - Build command: `npm run build`
-   - Output directory: `dist`
-   - Install command: `npm install`
-4. Click **Deploy**. You'll get a `<project>.vercel.app` URL immediately; add a custom domain later under Project → Settings → Domains if you want one.
+   - Build output directory: `dist`
+   - Node version: read from `.node-version` automatically; otherwise set the `NODE_VERSION` env var to `22`
+4. Click **Save and Deploy**. You'll get a `<project>.pages.dev` URL immediately; add a custom domain later under the project's **Custom domains** tab if you want one.
 
 No environment variables or serverless functions are needed — this is a fully static, client-only build. Every push to `main` triggers a new production deployment automatically; every other branch and pull request gets its own preview URL.
 
-`vercel.json` sets a `Cache-Control: no-cache` header on `sw.js`, `registerSW.js`, and `manifest.webmanifest` so browsers always revalidate them — without it, a stale cached service worker could hide new deployments from returning visitors.
+`public/_headers` sets a `Cache-Control: no-cache` header on `sw.js`, `registerSW.js`, and `manifest.webmanifest` (Vite copies it into `dist/` unchanged) so browsers always revalidate them — without it, a stale cached service worker could hide new deployments from returning visitors.
 
-Prefer the CLI instead? `npm i -g vercel`, then `vercel` from the project root to link and deploy a preview, or `vercel --prod` to deploy straight to production.
+Prefer the CLI instead? `npm i -g wrangler`, then `wrangler pages deploy dist` from the project root after running `npm run build`.
 
 ## Installing as an app
 

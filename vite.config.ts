@@ -8,8 +8,8 @@ import { VitePWA } from "vite-plugin-pwa";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Deployed on Vercel, which serves the project from the domain root
-// (unlike a GitHub Pages project site, there's no repo-name subpath).
+// Deployed on Cloudflare Pages, which serves the project from the domain
+// root (unlike a GitHub Pages project site, there's no repo-name subpath).
 const base = "/";
 
 // https://vite.dev/config/
