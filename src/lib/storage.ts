@@ -1,8 +1,8 @@
 import type { Settings, Sprite } from "@/types";
 import { DEFAULT_PALETTE_ID } from "./palettes";
 
-const DATA_KEY = "pixelforge.data.v1";
-const SETTINGS_KEY = "pixelforge.settings.v1";
+const DATA_KEY = "dottle.data.v1";
+const SETTINGS_KEY = "dottle.settings.v1";
 
 export interface PersistedData {
   sprites: Sprite[];
