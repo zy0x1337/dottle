@@ -2,6 +2,7 @@
   "name": "dottle",
   "private": true,
   "version": "0.0.0",
+  "description": "A mobile-first pixel art sprite editor for the web. Draw 16×16 to 32×32 sprites on phone or desktop, installable and offline-ready.",
   "license": "MIT",
   "type": "module",
   "scripts": {
